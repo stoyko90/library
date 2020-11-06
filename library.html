@@ -2,26 +2,119 @@
 <html>
 <head>  
     <title>Library</title>
-<style>    
-    
+<style>
+    body {
+        background-image:url("https://images2.alphacoders.com/468/thumb-1920-4682.jpg");   
+    }    
+    table, th, td, tr {
+        border: 1px solid black;
+        border-collapse: collapse;
+        color: greenyellow;
+    }
+    th, td,button {
+        padding: 10px;
+    }
+    table {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    form {
+        color: yellow;
+    }
 </style>
 </head>
 <body>
-    <h1>
-        yooo
-    </h1>
-    
-        
+    <button id="btn">NEW BOOK</button>
+    <form hidden id="form1" onsubmit="addBookToLibrary(); return false">
+        <label for="title">Enter a book title:</label>
+        <input type="text" class="text" id="title" placeholder="Title"><br>
+        <label for="author">Enter a book author:</label>
+        <input type="text" class="text" id="author" placeholder="Author"><br>
+        <label for="pages">Enter number of pages:</label>
+        <input type="number" class="text" id="pages" placeholder="Number of Pages"><br>
+        <label for="read">Enter if the book is read or not</label>
+        <input type="text" class="text" id="read" placeholder="Read"><br>
+        <input type="submit" value="Add">
+    </form>
+    <p></p>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Read</th>
+            <th>Remove</th>
+        </tr>
+
+    </table>      
         
     <script>
         let myLibrary = [];
-        function Book() {
+        const table = document.querySelector("table");
 
-        }
+        function Book(title, author, pages, read) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;                
+        } 
 
         function addBookToLibrary() {
-            fsdfsdfs
-        }
+            const book = new Book(document.querySelector("#title").value, document.querySelector("#author").value, document.querySelector("#pages").value, document.querySelector("#read").value);
+
+            if (document.querySelector("#title").value !== "" && document.querySelector("#author").value !== "" && document.querySelector("#pages").value !== "" && document.querySelector("#read").value !== "") {
+                myLibrary.push(book);
+                printToTable(book);
+            }
+            Array.from(document.querySelectorAll(".text")).forEach(el => el.value="")
+        }      
+        
+        function printToTable(item) {            
+            const tableRow = document.createElement("tr");
+            table.appendChild(tableRow);
+            const titleC = document.createElement("td");
+            tableRow.appendChild(titleC);
+            titleC.innerHTML = item.title;
+            const authorC = document.createElement("td");
+            tableRow.appendChild(authorC);
+            authorC.innerHTML = item.author;
+            const pagesC = document.createElement("td");
+            tableRow.appendChild(pagesC);
+            pagesC.innerHTML = item.pages;
+            const readC = document.createElement("td");
+            tableRow.appendChild(readC);
+            readC.innerHTML = item.read;
+            const removeC = document.createElement("td");
+            tableRow.appendChild(removeC);
+            const rbtn = document.createElement("button");
+            removeC.appendChild(rbtn);
+            rbtn.innerHTML = "Remove Book";
+
+            rbtn.addEventListener("click", function() {
+                rbtn.setAttribute("data-index", myLibrary.indexOf(item));
+                let idx = rbtn.getAttribute("data-index");
+                myLibrary.splice(idx, 1);
+                titleC.remove();
+                authorC.remove();
+                pagesC.remove();
+                readC.remove();
+                removeC.remove();
+            });
+                  
+        }  
+        const button = document.querySelector("#btn");
+
+        button.addEventListener("click", function() {
+            if(document.querySelector("#form1").hidden === true) {
+                document.querySelector("#form1").hidden = false;
+            }            
+            else {
+                document.querySelector("#form1").hidden = true;
+            }
+        });
+      
+        
     </script>
 </body>
 </html>
