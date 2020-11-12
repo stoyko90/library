@@ -1,0 +1,20 @@
+
+body {
+    background-image:url("https://images2.alphacoders.com/468/thumb-1920-4682.jpg");   
+}    
+table, th, td, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: greenyellow;
+}
+th, td,button {
+    padding: 10px;
+}
+table {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+form {
+    color: yellow;
+}
